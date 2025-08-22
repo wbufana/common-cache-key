@@ -1,0 +1,18 @@
+{
+  "name": "xsj/common-cache",
+  "version": "1.0.0",
+  "description": "Common cache helper and cache key manager for multiple projects",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Common\\Cache\\": "src/Common/Cache/"
+    }
+  },
+  "require": {
+    "php": ">=7.4",
+    "topthink/framework": "^6.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
