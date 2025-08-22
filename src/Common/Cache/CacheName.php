@@ -25,11 +25,11 @@ class CacheName
 	public static function FUTURE(): string { return self::prefix() . 'future:us'; }
 
 	// ---------------- 外汇 ----------------
-	public static function FOREX(): string { return self::prefix() . 'forex:list'; }
+	public static function FOREX(): string { return self::prefix() . 'forex'; }
 
 	// ---------------- 外汇贵金属 ----------------
-	public static function METALS(): string { return self::prefix() . 'forex:ug:list'; }
+	public static function METALS(): string { return self::prefix() . 'forex:ug'; }
 
 	// ---------------- 加密货币 ----------------
-	public static function CRYPTO(): string { return self::prefix() . 'crypto:list'; }
+	public static function CRYPTO(): string { return self::prefix() . 'crypto'; }
 }
