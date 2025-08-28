@@ -34,11 +34,11 @@ class CacheHelper
 	}
 
 	/**
-	 * 获取日股股票列表
+	 * 获取印度股票列表
 	 */
-	public static function getStockJpList(): array
+	public static function getStockInList(): array
 	{
-		return Cache::store('redis_center')->get(CacheName::STOCK_JP()) ?? [];
+		return Cache::store('redis_center')->get(CacheName::STOCK_IN()) ?? [];
 	}
 
 	/**

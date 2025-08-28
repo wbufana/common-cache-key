@@ -19,7 +19,7 @@ class CacheName
 	public static function STOCK_HK(): string { return self::prefix() . 'stock:hk'; }
 	public static function STOCK_US(): string { return self::prefix() . 'stock:us'; }
 	public static function STOCK_UK(): string { return self::prefix() . 'stock:uk'; }
-	public static function STOCK_JP(): string { return self::prefix() . 'stock:jp'; }
+	public static function STOCK_IN(): string { return self::prefix() . 'stock:in'; }
 
 	// ---------------- 期货 ----------------
 	public static function FUTURE(): string { return self::prefix() . 'future:us'; }
