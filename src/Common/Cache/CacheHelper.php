@@ -42,6 +42,14 @@ class CacheHelper
 	}
 
 	/**
+	 * 获取印度股票列表
+	 */
+	public static function getStockBseList(): array
+	{
+		return Cache::store('redis_center')->get(CacheName::STOCK_BSE()) ?? [];
+	}
+
+	/**
 	 * 获取外汇列表
 	 */
 	public static function getForexList(): array
