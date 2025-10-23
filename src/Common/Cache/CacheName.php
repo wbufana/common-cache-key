@@ -33,4 +33,7 @@ class CacheName
 
 	// ---------------- 加密货币 ----------------
 	public static function CRYPTO(): string { return self::prefix() . 'crypto'; }
+
+	// ---------------- 美国期货能源 ----------------
+	public static function STOCK_US_ENERGY(): string { return self::prefix() . 'future:us:energy'; }
 }

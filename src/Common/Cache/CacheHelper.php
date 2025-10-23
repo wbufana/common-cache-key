@@ -78,4 +78,12 @@ class CacheHelper
 	{
 		return Cache::store('redis_center')->get(CacheName::CRYPTO()) ?? [];
 	}
+
+	/**
+	 * 获取美国期货能源列表
+	 */
+	public static function getCryptoList(): array
+	{
+		return Cache::store('redis_center')->get(CacheName::STOCK_US_ENERGY()) ?? [];
+	}
 }
