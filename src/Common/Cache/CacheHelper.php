@@ -82,7 +82,7 @@ class CacheHelper
 	/**
 	 * 获取美国期货能源列表
 	 */
-	public static function getCryptoList(): array
+	public static function getUsEnergyList(): array
 	{
 		return Cache::store('redis_center')->get(CacheName::STOCK_US_ENERGY()) ?? [];
 	}
