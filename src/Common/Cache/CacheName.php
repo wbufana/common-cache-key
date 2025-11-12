@@ -36,4 +36,10 @@ class CacheName
 
 	// ---------------- 美国期货能源 ----------------
 	public static function STOCK_US_ENERGY(): string { return self::prefix() . 'future:us:energy'; }
+
+	// ---------------- 墨西哥股票 ----------------
+	public static function STOCK_MX(): string { return self::prefix() . 'stock:mx'; }
+
+	// ---------------- 美国期货 软商品 ----------------
+	public static function STOCK_US_SOFTGOODS(): string { return self::prefix() . 'future:us:softgoods'; }
 }

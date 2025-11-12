@@ -86,4 +86,20 @@ class CacheHelper
 	{
 		return Cache::store('redis_center')->get(CacheName::STOCK_US_ENERGY()) ?? [];
 	}
+
+	/**
+	 * 获取墨西哥股票列表
+	 */
+	public static function getStockMxList(): array
+	{
+		return Cache::store('redis_center')->get(CacheName::STOCK_MX()) ?? [];
+	}
+
+	/**
+	 * 获取美国期货软商品列表
+	 */
+	public static function getUsSoftgoodsList(): array
+	{
+		return Cache::store('redis_center')->get(CacheName::STOCK_US_SOFTGOODS()) ?? [];
+	}
 }
