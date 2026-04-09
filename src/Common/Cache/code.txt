@@ -1,0 +1,1219 @@
+<template>
+	<view class="content">
+		<navbar @tologin="showLogin=true" @openWallet="openWalletPopup"></navbar>
+		<u-swiper :list="indexObj.banner" keyName="image" height="200px" radius="10" indicator :autoplay="false"
+			imgMode="aspectFit"></u-swiper>
+			<!-- <AppKitWidget projectId="ba0adc9b716838fa98a7a9b91912494b" themeMode="light"></AppKitWidget> -->
+		<view class="menu">
+			<view class="item">
+				<!-- @click="changeTap('/pages/newindex/message')" -->
+				<image src="/static/images/icon1.svg" mode="widthFix" @click="modal.open()">
+				</image>
+				<text>{{$t('Notice')}}</text>
+			</view>
+			<view class="item" @click="showService=true">
+				<image src="/static/images/icon2.svg" mode="widthFix"></image>
+				<text>{{$t('Suppot')}}</text>
+			</view>
+			<view class="item">
+				<image src="/static/images/icon3.svg" mode="widthFix"
+					@click="navigateURL('/pages/newindex/about',false)">
+				</image>
+				<text>{{$t('About')}}</text>
+			</view>
+			<view class="item">
+				<image src="/static/images/icon 4.svg" mode="widthFix" @click="changeTap('/pages/newindex/invite')">
+				</image>
+				<text>{{$t('Invite')}}</text>
+			</view>
+		</view>
+		<view class="gogogo1" @click="openModal">
+			<view class="left">
+				<view class="">
+					<text>{{$t('USDT Amount')}}</text>
+					<text>{{userInfo.account&&userInfo.account.balance||0}}</text>
+				</view>
+				<view class="">
+					<text>{{$t("Today's Earnings(USDT)")}} </text>
+					<text>0</text>
+				</view>
+			</view>
+			<view class="">
+
+			</view>
+			<view class="right" style="min-height: 200px;">
+				<view class="zhezhao" v-if="!token">
+					<view class="btntop" @click="changeTap('/pages/newindex/invite')">
+						{{$t('Join Now')}}
+					</view>
+					<view>
+						<text>1、{{$t('text1')}}</text>
+						<text>2、{{$t('text2')}}</text>
+						<text>3、{{$t('text3')}}</text>
+						<text>4、{{$t('text4')}}</text>
+						<text>5、{{$t('text5')}}</text>
+					</view>
+
+				</view>
+			</view>
+		</view>
+		<view class="gogogo2">
+			<view class="nav_title">
+				<view class="">
+					<span></span>
+					<text>{{$t('Income Growth Rate')}}</text>
+				</view>
+				<text @click="changeTap('/pages/newindex/proportion')">{{$t('More')}}</text>
+			</view>
+			<view class="cont1">
+				<image src="/static/images/10010.svg" mode="widthFix" style="width:40px"></image>
+				<image src="/static/images/10009.svg" mode="widthFix" style="margin-top: 10px;"></image>
+				<view class="left top">
+					50USDT/{{$t('Day')}}<br>
+					+2%/{{$t('Day')}}
+				</view>
+				<view class="left bottom">
+					0.00USDT/{{$t('Day')}}<br>
+					+0.00%/{{$t('Day')}}
+				</view>
+				<view class="right top1">
+					VIP1
+				</view>
+				<view class="right bottom1">
+					VIP0
+				</view>
+			</view>
+		</view>
+		<view class="gogogo3">
+			<view class="nav_title">
+				<view class="" style="display: flex;align-items: center;">
+					<image src="/static/images/10011.svg" mode="widthFix" style="width: 30px;"></image>
+					<text style="margin-left: 10px;">{{$t('Total output')}}(USDT)</text>
+				</view>
+				<view class="" style="margin-top: 15px;">
+					<text>$</text>
+					<text
+						style="color: #ff917f;font-size: 30px;font-weight: bold;">{{indexObj.pool&&indexObj.pool.total_amount.toFixed(2)}}</text>
+				</view>
+			</view>
+			<view class="contgogogo">
+				<view class="left">
+					<view class="nav_title">
+						<view class="" style="display: flex;align-items: center;">
+							<image src="/static/images/10011.svg" mode="widthFix" style="width: 20px;"></image>
+							<text style="margin-left: 10px;">{{$t('Yesterday output')}}</text>
+						</view>
+						<view class="" style="margin-top: 15px;">
+							<text>$</text>
+							<text
+								style="color: #ff917f;font-size: 20px;font-weight: bold;">{{indexObj.pool&&indexObj.pool.total_earn.toFixed(2)}}</text>
+						</view>
+					</view>
+					<view class="bottom">
+						<text>{{$t('Current Hashrate')}}</text>
+						<text>356(PH/s)</text>
+					</view>
+				</view>
+				<view class="right">
+					<view class="nav_title">
+						<view class="" style="display: flex;align-items: center;">
+							<image src="/static/images/10011.svg" mode="widthFix" style="width: 20px;"></image>
+							<text style="margin-left: 10px;"> {{$t('participants(Users)')}} </text>
+						</view>
+						<view class="" style="margin-top: 15px;">
+							<text
+								style="color: #ff917f;font-size: 20px;font-weight: bold;">{{indexObj.pool&&indexObj.pool.total_node}}</text>
+						</view>
+					</view>
+					<view class="nav_title">
+						<view class="" style="display: flex;align-items: center;">
+							<image src="/static/images/10013.svg" mode="widthFix" style="width: 20px;"></image>
+							<text style="margin-left: 10px;">{{$t('Countries Covered')}}</text>
+						</view>
+						<view class="" style="margin-top: 15px;">
+							<text
+								style="color: #ff917f;font-size: 20px;font-weight: bold;">{{indexObj.pool&&indexObj.pool.total_users}}+</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="guanxitu">
+			<view class="nav_title">
+				<span></span>
+				<text style="margin-left: 10rpx;">{{$t('usage Process')}}</text>
+			</view>
+			<view class="">
+				<view class="item1">
+					<image src="/static/images/10014.svg" mode="" style="width: 20px;height: 20px;"></image>
+					<text>{{$t('Trust wallet')}}</text>
+				</view>
+				<image src="/static/images/10015.svg" mode="widthFix"></image>
+				<view class="item1">
+					<image src="/static/images/10016.svg" mode="" style="width: 30px;height: 20px;"></image>
+					<text style="font-size: 15px;">{{$t('Smart mining')}}</text>
+				</view>
+			</view>
+			<view class="">
+				<image src="/static/images/10017.svg" style="transform:  rotate(180deg);" mode="widthFix"></image>
+				<view>
+				</view>
+				<image src="/static/images/10017.svg" mode="widthFix"></image>
+			</view>
+			<view class="">
+				<view class="item1">
+					<image src="/static/images/10018.svg" mode="widthFix" style="width: 20px;"></image>
+					<text>{{$t('Withdraw')}}</text>
+				</view>
+				<image src="/static/images/10019.svg" mode="widthFix"></image>
+				<view class="item1">
+					<image src="/static/images/10020.svg" mode="widthFix" style="width: 20px;"></image>
+					<text>{{$t('Earn Income')}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="USDbox">
+			<view class="nav_title">
+				<span></span>
+				<text>{{$t('USD ETHW AI Strategy-C Mining Pool')}}</text>
+			</view>
+			<view class="item1">
+				<image src="/static/images/10021.svg" mode="widthFix"></image>
+				{{$t('No fund transfers required')}}
+			</view>
+			<view class="item1">
+				<image src="/static/images/10022.svg" mode="widthFix"></image>
+				{{$t('Consistent and stable yield')}}
+			</view>
+			<text>{{$t('text6')}}</text>
+
+		</view>
+		<view class="USDbox">
+			<view class="nav_title">
+				<span></span>
+				<text>{{$t('Project features')}}</text>
+			</view>
+			<view class="item">
+				<image src="/static/images/10023.svg" mode="widthFix"></image>
+				<view class="">
+					<text>{{$t('Safe and Secure')}}</text>
+					<text>{{$t('text7')}}</text>
+				</view>
+			</view>
+			<view class="item">
+				<image src="/static/images/10024.svg" mode="widthFix"></image>
+				<view class="">
+					<text>{{$t('Professional stability')}}</text>
+					<text>{{$t('text8')}}</text>
+				</view>
+			</view>
+			<view class="item">
+				<image src="/static/images/10025.svg" mode="widthFix"></image>
+				<view class="">
+					<text>{{$t('Low entry barrier')}}</text>
+					<text>{{$t('text9')}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="USDbox">
+			<view class="nav_title">
+				<span></span>
+				<text>{{$t('User Benefits')}}</text>
+			</view>
+			<view class="" style="display: flex;flex-direction: column;max-height: 200px;overflow: hidden;">
+				<view class="" style="display: flex;justify-content: space-between;align-items: center;padding: 10px 0;"
+					v-for="(item,index) in indexObj.address_list">
+					<text>{{index}}</text>
+					<text style="font-weight: bold;">{{item}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="USDbox">
+			<view class="nav_title">
+				<span></span>
+				<text>{{$t('Help Center')}}</text>
+			</view>
+			<view class="helpCenter">
+				<view class="List" v-for="item in helpList" @click="help(item)">
+					<view class="list-item">
+						<view class="title">
+							<text>{{item.title}}</text>
+							<image src="/static/images/10026.svg" mode="widthFix" style="width: 25px;"></image>
+
+						</view>
+						<text v-show="item==helpindex" v-html="item.content">
+						</text>
+					</view>
+				</view>
+			</view>
+
+		</view>
+		<u-popup :show="showService" @close="showService=false" mode="center" round="10">
+			<view style="width: 80vw;padding: 20px 15px 30px;">
+				<view class="service" @click="goservice">{{$t('Service')}}</view>
+			</view>
+		</u-popup>
+		<u-popup :show="showLogin" @close="showLogin=false" mode="bottom" round="10" closeable>
+			<view style="width: 100vw;padding: 20px 15px 30px;box-sizing: border-box;">
+				<view class="" style="text-align: center;padding:0 0  15px ;font-weight: bold;">
+					{{$t('Connect Wallet')}}
+				</view>
+				<!-- <view class="list1" @click="walletLoginHandler"> -->
+				<view class="list1" @click="loginByAppWallet">
+					<!-- <view class="">
+						<image src="/static/images/login1.svg" mode="widthFix" style="width: 40px;border-radius: 10px;"></image>
+						<text>{{$t('TokenPokcket')}}</text>
+					</view> -->
+					<view class="">
+						<image src="/static/images/onchain.svg" mode="widthFix"
+							style="width: 40px;border-radius: 10px;"></image>
+						<text>{{$t('onchain')}}</text>
+					</view>
+					<text>{{$t('INSTALLED')}}</text>
+				</view>
+				<!-- <view class="list1" @click="connectSafePalWallet"> -->
+				<view class="list1" @click="loginByBrowserWallet">
+					<view class="">
+						<image src="/static/images/login2.webp" mode="widthFix"
+							style="width: 40px;border-radius: 10px;"></image>
+						<text>{{$t('Browser Wallet')}}</text>
+					</view>
+					<text>{{$t('INSTALLED')}}</text>
+				</view>
+				<view class="list1">
+					<view class="">
+						<image src="/static/images/login3.webp" mode="widthFix"
+							style="width: 40px;border-radius: 10px;"></image>
+						<text>{{$t('1inch Wallet')}}</text>
+					</view>
+					<text></text>
+				</view>
+				<view class=""
+					style="text-align: center;margin-top: 20px;display: block;font-size: 14px;font-weight: bold;color: #666;">
+					<text>{{$t("Haven't got a wallet?")}}</text>
+					<text style="color: #7c8fff;margin-left: 10rpx;">{{$t('Get started')}}</text>
+				</view>
+			</view>
+		</u-popup>
+
+		<!-- 登陆状态下弹框 -->
+
+		<tabbars page="Home" @open="showLogin=true"></tabbars>
+	</view>
+</template>
+
+<script src="/static/libs/ethereum-provider.umd.js"></script>
+
+<script>
+	import {
+		re
+	} from 'mathjs'
+	// import { createAppKit } from '@reown/appkit/vue' 
+	import walletconnect from "@/utils/walletconnect.js";
+
+	export default {
+		data() {
+			return {
+				list1: [
+					"/static/images/768918106629558273.png",
+					"/static/images/768918352638074880.png",
+					"/static/images/768918410074873856.png",
+				],
+				helpindex: '',
+				showService: false,
+				showLogin: false,
+				invite_code: '',
+				indexObj: {},
+				helpList: [],
+				token: uni.getStorageSync('token'),
+				userInfo: {},
+				balance: "0.00",
+				showWallet: false,
+				modal: null
+			}
+		},
+		onLoad(option) {
+			if (option.invite_code) return this.invite_code = option.invite_code
+		},
+		onShow() {
+			this.gethelpList()
+			this.getindexList()
+			this.grtuserinfo()
+		},
+
+		methods: {
+			openModal() {
+				// 打开 modal
+				if (this.modal) {
+					this.modal.open() // 根据 SDK 提供的 API 进行打开
+				}
+			},
+			changeTap(e) {
+				if (!uni.getStorageSync('token')) {
+					this.showLogin = true
+				} else {
+					uni.navigateTo({
+						url: e
+					})
+				}
+
+			},
+			getindexList() {
+				this.$request.http({
+					url: "/api/index/index",
+					method: 'post',
+				}).then(res => {
+					this.indexObj = res.data
+				})
+			},
+			gethelpList() {
+				this.$request.http({
+					url: "/api/index/getPagesList",
+					method: 'post',
+					data: {
+						kind: 6
+					}
+				}).then(res => {
+					this.helpList = res.data
+				})
+			},
+			goservice() {
+				this.$request.http({
+					url: '/api/index/getCustomerService',
+					method: 'post',
+
+				}).then(res => {
+					window.open(res.data.url)
+				})
+			},
+			async grtuserinfo() {
+				this.$request.http({
+					url: '/api/member/userInfo',
+					method: 'post',
+
+				}).then(res => {
+					console.log(res);
+					if (res.code == 1) {
+						this.userInfo = res.data
+						uni.setStorageSync('userinfo', res.data)
+						if (!this.token) {
+							location.reload()
+						}
+					}
+				})
+			},
+			async walletLogin(address, type = 1) {
+				let res = await this.$request.http({
+					url: '/api/login/login',
+					method: 'post',
+					data: {
+						address: address,
+						kind: type,
+						invite_code: this.invite_code || '',
+					}
+				})
+				uni.setStorageSync('token', res.data.token)
+				uni.setStorageSync('userId', res.data.uid)
+				this.grtuserinfo()
+				// location.reload()
+			},
+			async walletLoginHandler() {
+				await this.$nextTick();
+
+				let provider = null;
+
+				// ----- 钱包优先级顺序 -----
+				if (window.bitkeep && window.bitkeep.ethereum) {
+					provider = window.bitkeep.ethereum;
+
+				} else if (window.okxwallet && window.okxwallet.ethereum) {
+					provider = window.okxwallet.ethereum;
+
+					// ====== SafePal 检测（重点）======
+				} else if (window.safepal && window.safepal.ethereum) {
+					provider = window.safepal.ethereum;
+
+				} else if (window.ethereum && window.ethereum.isSafePal) {
+					// SafePal 另一种注入方式
+					provider = window.ethereum;
+
+					// ====== TokenPocket（可选）=====
+				} else if (window.ethereum && window.ethereum.isTokenPocket) {
+					provider = window.ethereum;
+
+					// ====== MetaMask 等通用钱包 ======
+				} else if (window.ethereum) {
+					provider = window.ethereum;
+				}
+
+				if (!provider) {
+					console.log('未检测到钱包环境');
+					return;
+				}
+
+				try {
+					// 授权（必须在点击事件内调用）
+					const accounts = await provider.request({
+						method: 'eth_requestAccounts'
+					});
+
+					if (!accounts || !accounts.length) {
+						console.log('用户未授权');
+						return;
+					}
+
+					const address = accounts[0];
+					this.address = address;
+
+					// 你的登录逻辑
+					this.walletLogin(address);
+					this.showLogin = false;
+
+				} catch (err) {
+					console.error('钱包授权失败:', err);
+				}
+			},
+			getAppWalletProvider() {
+				// OKX Wallet (app)
+				if (window.okxwallet?.ethereum) return window.okxwallet.ethereum;
+
+				// Bitget / BitKeep
+				if (window.bitkeep?.ethereum) return window.bitkeep.ethereum;
+
+				// SafePal App
+				if (window.safepal?.ethereum) return window.safepal.ethereum;
+				if (window.ethereum?.isSafePal) return window.ethereum;
+
+				// TokenPocket App
+				if (window.ethereum?.isTokenPocket) return window.ethereum;
+
+				// Trust Wallet (App Browser)
+				if (window.trustwallet?.ethereum) return window.trustwallet.ethereum;
+
+				// Coinbase App Browser
+				if (window.ethereum?.isCoinbaseWallet) return window.ethereum;
+
+				// imToken 内置浏览器
+				if (/imtoken/i.test(navigator.userAgent)) {
+					return window.ethereum;
+				}
+
+				// Binance Web3 Wallet App
+				if (window.BinanceChain) return window.BinanceChain;
+
+				// 通用：在钱包内置 DApp 浏览器中会注入 window.ethereum
+				if (/wallet|token|okx|bitget|safepal|trust|coinbase/i.test(navigator.userAgent)) {
+					if (window.ethereum) return window.ethereum;
+				}
+
+				return null;
+			},
+			// 登陆app钱包
+			async loginByAppWallet_old() {
+				const provider = this.getAppWalletProvider();
+
+				if (!provider) {
+					alert("Please open this page in the wallet's built-in browser.");
+					return;
+				}
+
+				const accounts = await provider.request({
+					method: "eth_requestAccounts"
+				});
+				
+				this.walletLogin(accounts[0]);
+			},
+			async loginByAppWallet() {
+				const injected = window.ethereum;
+
+				// ========== 情况1：钱包内置浏览器 (Onchain、MetaMask、TP、OKX) ==========
+				if (injected) {
+					try {
+						const accounts = await injected.request({
+							method: "eth_requestAccounts"
+						});
+						return this.walletLogin(accounts[0]);
+					} catch (e) {
+						console.log("授权失败", e);
+					}
+				}
+
+				// ========== 情况2：普通浏览器，自动拉起钱包 ==========
+				this.openWalletApp();
+			},
+			async openWalletApp() {
+			    try {
+			        const result = await walletconnect.connect();
+			        this.walletLogin(result.account);
+			
+			        uni.showToast({
+			            title: "连接成功",
+			            icon: "success"
+			        });
+			
+			    } catch (error) {
+			        console.error(error);
+			        uni.showToast({
+			            title: "连接失败",
+			            icon: "none"
+			        });
+			    }
+			},
+			
+
+			openWalletApp1() {
+				const dappUrl = encodeURIComponent(window.location.href);
+
+				const schemes = [
+					// Onchain（伪示例，如需我可帮你确认官方 DeepLink）
+					`onchainwallet://dapp?url=${dappUrl}`,
+
+					// MetaMask
+					`metamask://dapp/${window.location.host}`,
+
+					// OKX Wallet
+					`okx://wallet/dapp/url?url=${dappUrl}`,
+
+					// TokenPocket
+					`tpoutside://pull.activity?param={"url":"${dappUrl}"}`,
+
+					// Bitget Wallet
+					`bitkeep://dapp?url=${dappUrl}`,
+
+					// OneKey Wallet
+					`onekeywallet://dapp?url=${dappUrl}`
+
+					// TokenPocket（TP）
+					`tpoutside://pull.activity?param={"url":"${dappUrl}"}`,
+				];
+
+				// 多方案容错，只要一个能打开就行
+				for (let link of schemes) {
+					let iframe = document.createElement("iframe");
+					iframe.style.display = "none";
+					iframe.src = link;
+					document.body.appendChild(iframe);
+
+					setTimeout(() => {
+						document.body.removeChild(iframe);
+					}, 2000);
+				}
+
+				// 兜底提示
+				setTimeout(() => {
+					alert("请安装支持以太坊的钱包 App 并重试");
+				}, 2500);
+			},
+
+			getBrowserWalletProvider() {
+				if (window.ethereum) return window.ethereum;
+				return null;
+			},
+			// 登陆浏览器钱包
+			async loginByBrowserWallet() {
+				const provider = this.getBrowserWalletProvider();
+
+				if (!provider) {
+					alert("请安装浏览器钱包（MetaMask / OKX / Bitget 等）");
+					return;
+				}
+
+				const accounts = await provider.request({
+					method: "eth_requestAccounts"
+				});
+
+				this.walletLogin(accounts[0]);
+			},
+			// 退出钱包
+			disconnectWallet() {
+				this.userInfo.address = null;
+				localStorage.removeItem("walletAddress");
+
+
+				this.showWallet = false;
+			},
+			openWalletPopup() {
+				// 打开钱包连接弹窗
+				this.showWallet = true;
+
+				// 如果你需要重置一些状态（可选）
+				// this.walletType = null;
+				// this.loginError = null;
+			},
+
+			async connectSafePalWallet() {
+				let provider = null;
+
+				// SafePal 注入方式 1
+				if (window.safepal && window.safepal.ethereum) {
+					provider = window.safepal.ethereum;
+
+					// SafePal 注入方式 2
+				} else if (window.ethereum && window.ethereum.isSafePal) {
+					provider = window.ethereum;
+				}
+
+				if (!provider) {
+					console.log("未检测到 SafePal 钱包环境");
+					return;
+				}
+
+				try {
+					const accounts = await provider.request({
+						method: "eth_requestAccounts"
+					});
+
+					if (!accounts.length) {
+						console.log("SafePal 钱包未授权");
+						return;
+					}
+
+					const address = accounts[0];
+					console.log("SafePal 钱包地址：", address);
+
+					this.address = address;
+					this.walletLogin(address); // 登录逻辑
+					this.showLogin = false;
+
+					return address;
+
+				} catch (err) {
+					console.error("SafePal 钱包连接失败：", err);
+				}
+			},
+			help(item) {
+				if (this.helpindex == item) {
+					this.helpindex = ''
+				} else {
+					this.helpindex = item
+				}
+			}
+		}
+	}
+</script>
+
+<style scoped lang="less">
+	.list1 {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10px;
+		margin-bottom: 10px;
+		background-color: #fafafa;
+		border-radius: 10rpx;
+
+		>view {
+			display: flex;
+			align-items: center;
+
+			>text {
+				margin-left: 10px;
+				font-weight: bold;
+			}
+		}
+
+		>text {
+			color: #2ab665;
+			background-color: #daf0e4;
+			padding: 5rpx;
+			font-size: 12px;
+			font-weight: bold;
+		}
+	}
+
+	.service {
+		background-color: #4266f5;
+		color: white;
+		padding: 10px 10px;
+		text-align: center;
+		border-radius: 20px;
+	}
+
+	.USDbox {
+		background-color: white;
+		margin-top: 30px;
+		padding: 10px;
+		border-radius: 10px;
+
+		.nav_title {
+			display: flex;
+			align-items: center;
+
+			>span {
+				width: 3px;
+				height: 10px;
+				background-color: #4266f5;
+				margin-right: 10px;
+			}
+		}
+
+		.item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 10px 0;
+
+			>image {
+				width: 60px;
+				background-color: #eceffe;
+				padding: 10rpx;
+				box-sizing: border-box;
+				border-radius: 10rpx;
+			}
+
+			>view {
+				width: 80%;
+				display: flex;
+				flex-direction: column;
+
+				>text:nth-child(2) {
+					color: #666;
+					font-size: 14px;
+				}
+			}
+		}
+
+		.helpCenter {
+			.List {
+				margin-top: 15px;
+
+				.list-item {
+					margin-bottom: 15px;
+					padding: 15px 10px;
+					box-shadow: 0 0 10px rgba(150, 150, 150, 0.7);
+					border-radius: 10px;
+
+					.title {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						// >view{
+						// 	background-color: #0256ff;
+						// 	border-radius: 50%;
+						// 	padding: 5rpx;
+						// }
+					}
+
+					>text {
+						margin-top: 15px;
+						display: block;
+					}
+				}
+			}
+		}
+
+		.item1 {
+			display: flex;
+			align-items: center;
+			padding: 10px 0;
+
+			>text {
+				width: 80%;
+			}
+
+			>image {
+				width: 50px;
+				padding: 10rpx;
+				box-sizing: border-box;
+			}
+		}
+
+		>text {
+			color: #666;
+			font-size: 14px;
+			margin-top: 15px;
+		}
+	}
+
+	page {
+		background-color: #f2f3f7;
+	}
+
+	.guanxitu {
+		padding: 10px;
+		background-color: white;
+		margin-top: 20px;
+		border-radius: 10px;
+
+		.nav_title {
+			display: flex;
+			align-items: center;
+
+			>span {
+				display: block;
+				background-color: #4266f5;
+				width: 3px;
+				height: 10px;
+			}
+		}
+
+		>view:nth-child(2) {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 10px;
+
+			>image {
+				width: 30%;
+			}
+
+			>view {
+				background-color: #e5eeff;
+				padding: 15px 15px;
+				width: 30%;
+				display: flex;
+				align-items: center;
+				white-space: nowrap;
+				border-radius: 10px;
+			}
+		}
+
+		>view:nth-child(3) {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 10px;
+
+			>image {
+				width: 30%;
+			}
+
+			>view {
+				// background-color: #e5eeff;
+				padding: 15px 15px;
+				width: 30%;
+				display: flex;
+				align-items: center;
+				white-space: nowrap;
+				border-radius: 10px;
+			}
+		}
+
+		>view:nth-child(4) {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 10px;
+
+			>image {
+				width: 30%;
+			}
+
+			>view {
+				background-color: #e5eeff;
+				padding: 15px 15px;
+				width: 30%;
+				display: flex;
+				align-items: center;
+				white-space: nowrap;
+				border-radius: 10px;
+			}
+		}
+	}
+
+	.gogogo3 {
+		display: flex;
+		flex-direction: column;
+		margin-top: 30px;
+
+		.nav_title {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: white;
+			padding: 10px;
+			border-radius: 10rpx;
+		}
+
+		.contgogogo {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 10px;
+
+			.left {
+				width: 48%;
+				border-radius: 10px;
+				background-color: white;
+				padding: 10px;
+				box-sizing: border-box;
+
+				.bottom {
+					margin-top: 20px;
+					display: flex;
+					flex-direction: column;
+					text-align: end;
+					width: 80%;
+
+					>text:nth-child(2) {
+						color: #686666;
+						font-size: 20px;
+						font-weight: bold;
+					}
+				}
+			}
+
+			.right {
+				width: 48%;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	.gogogo2 {
+		display: flex;
+		flex-direction: column;
+		// box-shadow: 6px 6px 10px rgba(97, 97, 97, .5), -6px -6px 10px #fff;
+		margin-top: 30px;
+		border-radius: .625rem;
+		overflow: hidden;
+		background-color: #ffffff;
+		position: relative;
+		padding: 15px;
+
+		.nav_title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			>view:nth-child(1) {
+				display: flex;
+				align-items: center;
+				font-size: 18px;
+				font-weight: bold;
+
+				>span {
+					background-color: #4266f5;
+					height: 13px;
+					width: 3px;
+					display: block;
+					border-radius: 10rpx;
+					margin-right: 10rpx;
+				}
+			}
+		}
+
+		.cont1 {
+			padding: 20px 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+
+			>image:nth-child(1) {
+				margin-left: 45%;
+			}
+
+			.left {
+				position: absolute;
+				box-shadow: 0 0 10px rgba(97, 97, 97, .1), ;
+				padding: 10px;
+				background-color: white;
+				border-radius: 10px;
+			}
+
+			.right {
+				position: absolute;
+			}
+
+			.top1 {
+				right: 0px;
+				top: 98px;
+				font-size: 14px;
+				background-color: white;
+				padding-left: 10rpx;
+			}
+
+			.bottom1 {
+				right: 0px;
+				bottom: 88px;
+				font-size: 14px;
+				background-color: white;
+				padding-left: 10rpx;
+				color: #1ba27a;
+			}
+
+			.top {
+				left: 70px;
+				top: 40px;
+				color: #666;
+			}
+
+			.bottom {
+				bottom: 70px;
+				left: 20px;
+				padding: 10px 20px;
+				text-align: end;
+				color: #ff8e72;
+			}
+		}
+	}
+
+	.gogogo1 {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		box-shadow: 6px 6px 10px rgba(97, 97, 97, .5), -6px -6px 10px #fff;
+		margin-top: 20px;
+		border-radius: .625rem;
+		overflow: hidden;
+		// padding: 1.875rem 0 0 1.875rem;
+		position: relative;
+
+		.left {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			padding: 1.875rem 0 0 1.875rem;
+
+			>view {
+				display: flex;
+				flex-direction: column;
+				white-space: nowrap;
+				margin: 10rpx 0;
+				font-size: 14px;
+				color: #666;
+
+				>text:nth-child(2) {
+					font-size: 26px;
+					font-weight: bold;
+					color: black;
+				}
+			}
+		}
+
+		.right {
+			width: 68%;
+			background-image: url('@/static/images/icon5.png');
+			background-size: 100% 100%;
+
+			.zhezhao {
+				padding: 1.875rem 0 0 1.875rem;
+				background-color: rgba(0, 0, 0, 0.7);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				.btntop {
+					background-color: #0256ff;
+					color: white;
+					padding: 10px 30px;
+					border-radius: 30px;
+					font-size: 14px;
+				}
+
+				>view:nth-child(2) {
+					display: flex;
+					flex-direction: column;
+					color: white;
+					font-size: 14px;
+					margin-top: 15px;
+					padding-bottom: 20px;
+				}
+			}
+		}
+	}
+
+	.menu {
+		display: flex;
+		justify-content: space-around;
+		padding: 10px 0;
+
+		.item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			>image {
+				width: 60px;
+			}
+
+			>text {
+				font-size: 14px;
+				margin-top: 10rpx;
+			}
+		}
+	}
+
+	.wallet-avatar {
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		margin: 0 auto 10px;
+	}
+
+	.big-btn {
+		background: #7c8fff;
+		padding: 12px;
+		text-align: center;
+		border-radius: 10px;
+		color: #fff;
+		font-size: 15px;
+		margin-bottom: 12px;
+	}
+
+	.big-btn.logout {
+		background: #f56c6c;
+	}
+</style>
+
+// // utils/walletconnect.js
+// utils/walletconnect.js
+
+let wcProvider = null;
+
+const projectId = "429c039e8998d6319e6a0462fba2126c";   // 必须填写!!!
+
+// App 信息
+const metadata = {
+    name: "Difii",
+    description: "Difii Login",
+    url: "https://www.defi1688.com",
+    icons: ["https://1109admin.defi1688.com/static/img/usdt.png"]
+};
+
+export default {
+
+    async connect() {
+        return new Promise(async (resolve, reject) => {
+
+            try {
+                if (!window.WalletConnectProvider) {
+                    return reject("未加载 WalletConnectProvider 资源");
+                }
+
+                wcProvider = await window.WalletConnectProvider.init({
+                    projectId,
+                    metadata,
+                    showQrModal: true,        // 支持扫码
+                    optionalChains: [1, 56],  // ETH, BSC
+                    optionalMethods: ["eth_sendTransaction", "personal_sign"]
+                });
+
+                await wcProvider.connect();
+
+                const accounts = wcProvider.accounts;
+
+                resolve({
+                    account: accounts[0],
+                    provider: wcProvider
+                });
+
+            } catch (e) {
+                reject(e);
+            }
+        });
+    },
+
+    disconnect() {
+        if (wcProvider) {
+            wcProvider.disconnect();
+            wcProvider = null;
+        }
+    }
+}; 这是我的两个代码。现在情况是在手机浏览器 点击 钱包授权登录，目的是想跳转对应的钱包app授权登录，现在是点击会提示连接失败，什么原因

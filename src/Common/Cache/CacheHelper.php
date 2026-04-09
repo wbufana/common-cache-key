@@ -102,4 +102,12 @@ class CacheHelper
 	{
 		return Cache::store('redis_center')->get(CacheName::STOCK_US_SOFTGOODS()) ?? [];
 	}
+
+    /**
+     * 获取尼日利亚股票
+     */
+    public static function getStockNgList(): array
+    {
+        return Cache::store('redis_center')->get(CacheName::STOCK_NG()) ?? [];
+    }
 }
